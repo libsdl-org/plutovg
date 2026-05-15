@@ -1879,8 +1879,12 @@ void PVG_FT_Outline_Get_CBox(const PVG_FT_Outline* outline, PVG_FT_BBox* acbox)
           if(worker.skip_spans < 0)
               rendered_spans += -worker.skip_spans;
           worker.skip_spans = rendered_spans;
+          if(length > (size_t)1 << 27) /* cap at 256 MB */
+              break;
           length *= 2;
           void* heap = malloc(length);
+          if(!heap)
+              break;
           error = gray_raster_render(&worker, heap, length, params);
           free(heap);
       }
