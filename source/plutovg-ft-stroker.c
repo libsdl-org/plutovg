@@ -258,7 +258,6 @@ static PVG_FT_Error ft_stroke_border_grow(PVG_FT_StrokeBorder border,
             error = -3;  // PVG_FT_THROW( Out_Of_Memory );
             goto Exit;
         }
-        border->points = new_pts;
 
         new_tags = (PVG_FT_Byte*)realloc(border->tags,
                                          cur_max * sizeof(PVG_FT_Byte));
@@ -266,9 +265,10 @@ static PVG_FT_Error ft_stroke_border_grow(PVG_FT_StrokeBorder border,
             error = -3;  // PVG_FT_THROW( Out_Of_Memory );
             goto Exit;
         }
-        border->tags = new_tags;
 
         border->max_points = cur_max;
+        border->points = new_pts;
+        border->tags = new_tags;
     }
 
 Exit:
