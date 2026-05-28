@@ -90,7 +90,7 @@ plutovg_codepoint_t plutovg_text_iterator_next(plutovg_text_iterator_t* it)
         const uint16_t* text = it->text;
         codepoint = text[it->index++];
         if(((codepoint) & 0xfffffc00) == 0xd800) {
-            if(it->index < it->length && (((codepoint) & 0xfffffc00) == 0xdc00)) {
+            if(it->index < it->length && ((text[it->index] & 0xfffffc00) == 0xdc00)) {
                 uint16_t trail = text[it->index++];
                 codepoint = (codepoint << 10) + trail - ((0xD800u << 10) - 0x10000u + 0xDC00u);
             }
