@@ -6,3 +6,8 @@ option('font-face-cache-load',
     value : 'auto',
     description : 'Enable loading font face cache from files and directories'
 )
+option('image-write',
+    type : 'feature',
+    value : 'enabled',
+    description : 'Disable png or jpg image write'
+)
