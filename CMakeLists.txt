@@ -39,7 +39,6 @@ add_library(plutovg::plutovg ALIAS plutovg)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CheckIncludeFile)
-include(CMakeDependentOption)
 
 set_target_properties(plutovg PROPERTIES
     SOVERSION ${PLUTOVG_VERSION_MAJOR}
@@ -171,7 +170,7 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/plutovg.pc"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
 )
 
-cmake_dependent_option(PLUTOVG_BUILD_EXAMPLES "Build examples" ON PLUTOVG_ENABLE_IMAGE_WRITE OFF)
+option(PLUTOVG_BUILD_EXAMPLES "Build examples" ON)
 if(PLUTOVG_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()

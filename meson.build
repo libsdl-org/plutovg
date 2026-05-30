@@ -1,7 +1,7 @@
 project('plutovg', 'c',
     version: '1.3.3',
     license: 'MIT',
-    meson_version: '>=1.3.0',
+    meson_version: '>=1.0.0',
     default_options: ['c_std=gnu11']
 )
 
@@ -79,9 +79,7 @@ meson.override_dependency('plutovg', plutovg_dep)
 install_headers('include/plutovg.h', subdir: 'plutovg')
 
 if not get_option('examples').disabled()
-  if get_option('image-write').enabled()
     subdir('examples')
-  endif
 endif
 
 pkgmod = import('pkgconfig')
