@@ -63,6 +63,11 @@ if(NOT BUILD_SHARED_LIBS)
     target_compile_definitions(plutovg PUBLIC PLUTOVG_BUILD_STATIC)
 endif()
 
+option(PLUTOVG_ENABLE_IMAGE_WRITE "Enable png or jpg image write" ON)
+if(NOT PLUTOVG_ENABLE_IMAGE_WRITE)
+    target_compile_definitions(plutovg PRIVATE PLUTOVG_DISABLE_IMAGE_WRITE)
+endif()
+
 include(GNUInstallDirs)
 
 include(CMakePackageConfigHelpers)

@@ -21,6 +21,10 @@ if math_dep.found()
     plutovg_deps += [math_dep]
 endif
 
+if get_option('image-write').disabled()
+    plutovg_c_args += ['-DPLUTOVG_DISABLE_IMAGE_WRITE']
+endif
+
 if get_option('default_library') == 'static'
     plutovg_compile_args += ['-DPLUTOVG_BUILD_STATIC']
 endif
