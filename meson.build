@@ -20,6 +20,10 @@ if get_option('font-face-cache-load').disabled()
     plutovg_c_args += ['-DPLUTOVG_DISABLE_FONT_FACE_CACHE_LOAD']
 endif
 
+if get_option('image-write').disabled()
+    plutovg_c_args += ['-DPLUTOVG_DISABLE_IMAGE_WRITE']
+endif
+
 if get_option('default_library') == 'static'
     plutovg_c_args += ['-DPLUTOVG_BUILD_STATIC']
     plutovg_compile_args += ['-DPLUTOVG_BUILD_STATIC']
@@ -75,7 +79,9 @@ meson.override_dependency('plutovg', plutovg_dep)
 install_headers('include/plutovg.h', subdir: 'plutovg')
 
 if not get_option('examples').disabled()
+  if get_option('image-write').enabled()
     subdir('examples')
+  endif
 endif
 
 pkgmod = import('pkgconfig')

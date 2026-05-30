@@ -39,6 +39,7 @@ add_library(plutovg::plutovg ALIAS plutovg)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CheckIncludeFile)
+include(CMakeDependentOption)
 
 set_target_properties(plutovg PROPERTIES
     SOVERSION ${PLUTOVG_VERSION_MAJOR}
@@ -83,6 +84,11 @@ endif()
 option(PLUTOVG_DISABLE_FONT_FACE_CACHE_LOAD "Disable loading font face cache from files and directories" OFF)
 if(PLUTOVG_DISABLE_FONT_FACE_CACHE_LOAD)
     target_compile_definitions(plutovg PRIVATE PLUTOVG_DISABLE_FONT_FACE_CACHE_LOAD)
+endif()
+
+option(PLUTOVG_ENABLE_IMAGE_WRITE "Enable png or jpg image write" ON)
+if(NOT PLUTOVG_ENABLE_IMAGE_WRITE)
+    target_compile_definitions(plutovg PRIVATE PLUTOVG_DISABLE_IMAGE_WRITE)
 endif()
 
 configure_package_config_file(
@@ -165,7 +171,7 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/plutovg.pc"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
 )
 
-option(PLUTOVG_BUILD_EXAMPLES "Build examples" ON)
+cmake_dependent_option(PLUTOVG_BUILD_EXAMPLES "Build examples" ON PLUTOVG_ENABLE_IMAGE_WRITE OFF)
 if(PLUTOVG_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
