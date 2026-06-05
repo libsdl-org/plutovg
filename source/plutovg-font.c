@@ -697,10 +697,9 @@ plutovg_font_face_t* plutovg_font_face_cache_get(plutovg_font_face_cache_t* cach
 #include <unistd.h>
 #include <dirent.h>
 
-#ifdef __linux__
-#include <linux/limits.h>
-#else
 #include <limits.h>
+#ifndef PATH_MAX
+#define PATH_MAX 4096
 #endif
 
 #include <sys/mman.h>
